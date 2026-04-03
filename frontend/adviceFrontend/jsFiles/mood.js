@@ -1,40 +1,49 @@
-// ── api.js ─────────────────────────────────────────────────────────────────
-// Central place for all backend calls.
-// Change BASE_URL if your backend runs on a different port.
+// ── mood.js ────────────────────────────────────────────────────────────────
+(function () {
+  const moodBtns   = document.querySelectorAll(".mood-btn");
+  const tipBox     = document.getElementById("tip-box");
+  const tipText    = document.getElementById("tip-text");
+  const tipLoader  = document.getElementById("tip-loading");
+  const anotherBtn = document.getElementById("another-btn");
 
-const BASE_URL = "http://localhost:3001/api";
+  let currentMood = null;
 
-const API = {
-  /**
-   * Get a calming tip for a given mood.
-   * @param {string} mood - e.g. "anxious", "overwhelmed"
-   * @param {string} [name] - optional user name for personalization
-   * @returns {Promise<{tip: string, mood: string, source: string}>}
-   */
-  async getTip(mood, name = "") {
-    const res = await fetch(`${BASE_URL}/advice/mood`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ mood, name }),
+  function getNameInput() {
+    return (document.getElementById("user-name")?.value || "").trim();
+  }
+
+  function showLoading() {
+    tipText.classList.add("hidden");
+    tipLoader.classList.remove("hidden");
+  }
+
+  function showTip(text) {
+    tipLoader.classList.add("hidden");
+    tipText.textContent = text;
+    tipText.classList.remove("hidden");
+  }
+
+  async function fetchTip(mood) {
+    showLoading();
+    tipBox.classList.remove("hidden");
+    try {
+      const data = await API.getTip(mood, getNameInput());
+      showTip(data.tip);
+    } catch {
+      showTip("Take a slow breath. In for 4, hold for 2, out for 6. You're not alone.");
+    }
+  }
+
+  moodBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      moodBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentMood = btn.dataset.mood;
+      fetchTip(currentMood);
     });
-    if (!res.ok) throw new Error("Failed to fetch tip");
-    return res.json();
-  },
+  });
 
-  /**
-   * Send a chat message and get a reply.
-   * @param {string} message
-   * @param {Array}  history - previous [{role, content}] pairs
-   * @param {string} [name]
-   * @returns {Promise<{reply: string, history: Array}>}
-   */
-  async chat(message, history = [], name = "") {
-    const res = await fetch(`${BASE_URL}/advice/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, history, name }),
-    });
-    if (!res.ok) throw new Error("Failed to get chat response");
-    return res.json();
-  },
-};
+  anotherBtn.addEventListener("click", () => {
+    if (currentMood) fetchTip(currentMood);
+  });
+})();

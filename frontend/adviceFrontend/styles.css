@@ -26,8 +26,8 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  overflow-x: hidden;
-  line-height: 1.6;
+  padding: 20px;
+  transition: background 0.8s ease, color 0.8s ease;
 }
 
 /* ── Ambient Orbs ───────────────────────────────────────────── */
@@ -121,12 +121,14 @@ body {
 
 /* ── Cards ──────────────────────────────────────────────────── */
 .card {
-  background: var(--surface);
+  background: var(--card);
+  color: var(--text);
   border-radius: var(--radius);
-  padding: 32px;
+  padding: 28px;
   box-shadow: var(--shadow);
-  transition: box-shadow 0.3s;
+  transition: background 0.4s, color 0.4s;
 }
+
 .card:hover { box-shadow: var(--shadow-lg); }
 
 .card-title {

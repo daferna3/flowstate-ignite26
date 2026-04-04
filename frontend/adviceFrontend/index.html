@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
 
-  <body>
+  <body data-palette="1"></body>
+
+  <body>    
     <button class="home-btn" onclick="window.location.href='../../index.html'">🏠 Home</button>
     
     <div class="orb orb-1"></div>
@@ -120,6 +122,7 @@
     <script src="jsFiles/mood.js"></script>
     <script src="jsFiles/chat.js"></script>
     <script src="jsFiles/dump.js"></script>
+
     <script>
     document.addEventListener("DOMContentLoaded", () => {
       const dots = document.querySelectorAll('.palette-dot');
@@ -128,7 +131,6 @@
 
       dots.forEach(dot => {
         if(dot.dataset.target === savedTheme) dot.classList.add('active');
-
         dot.addEventListener('click', () => {
           const target = dot.dataset.target;
           document.body.setAttribute('data-palette', target);
@@ -139,5 +141,6 @@
       });
     });
     </script>
+
   </body>
 </html>

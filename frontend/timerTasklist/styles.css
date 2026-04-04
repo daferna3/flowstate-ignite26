@@ -40,6 +40,11 @@ body.focus-mode {
   margin-bottom: 20px;
 }
 
+/* If you want Home on the left and the others on the right: */
+.top-btn:first-child {
+  margin-right: auto; /* Pushes all subsequent buttons to the far right */
+}
+
 .top-btn {
   background: var(--surface);
   border: 2px solid var(--surface-2);

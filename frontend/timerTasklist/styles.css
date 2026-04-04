@@ -1,12 +1,12 @@
 /* ── Variables ─────────────────────────────────────────────── */
 :root {
-  --bg: transparent; 
+  --bg: transparent;
   --text: inherit;
   --accent: inherit;
-  --card: rgba(255, 255, 255, 0.08); /* Soft glassy look */
+  --card: rgba(255, 255, 255, 0.08);
   --radius: 20px;
   --radius-sm: 10px;
-}   
+}
 
 /* ── Base ───────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,128 +23,44 @@ body {
 /* ── Top Bar ────────────────────────────────────────────────── */
 .top-bar {
   display: flex;
-  gap: 15px;
+  gap: 12px;
   justify-content: flex-end;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  align-items: center;
 }
-
 .top-btn:first-child { margin-right: auto; }
 
-/* Clean, Invisible-Box Buttons */
-.top-btn, .adj-btn, .reset-btn {
-  background: transparent !important;
-  border: 1px solid transparent !important;
-  color: var(--accent) !important; /* Keep words visible */
-  padding: 8px 12px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: opacity 0.2s;
-}
-
-.top-btn:hover, .adj-btn:hover {
-  opacity: 0.6;
-  border-bottom: 1px solid var(--accent) !important; /* Subtle underline on hover */
-}
-
-/* ── Cards (The main containers) ────────────────────────────── */
-.card {
-  background: var(--card);
-  backdrop-filter: blur(10px); /* The "Glass" effect */
+/* Top nav pill buttons */
+.top-btn {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
   color: var(--text);
-  border-radius: var(--radius);
-  padding: 28px;
-  transition: background 0.4s;
-}
-
-.section-title {
-  font-family: "DM Serif Display", serif;
-  font-size: 1.4rem;
-  color: var(--text);
-  margin-bottom: 20px;
-}
-
-/* ── Timer Display ──────────────────────────────────────────── */
-.time-display {
-  font-family: "DM Serif Display", serif;
-  font-size: 4.5rem;
-  text-align: center;
-  color: var(--text) !important; /* Forces visibility */
-  letter-spacing: -2px;
-  margin: 15px 0;
-}
-
-/* ── Controls (The Main Action Buttons) ─────────────────────── */
-.timer-controls {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.ctrl-btn {
-  flex: 1;
-  padding: 12px;
-  border-radius: var(--radius-sm);
-  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 100px;
   cursor: pointer;
-  border: none;
-  transition: transform 0.2s;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  backdrop-filter: blur(6px);
 }
-
-.start-btn {
-  background: var(--accent) !important;
-  color: var(--bg) !important; /* High contrast for the primary button */
+.top-btn:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.3);
+  transform: translateY(-1px);
 }
-
-.pause-btn {
-  background: transparent !important;
-  border: 2px solid var(--accent) !important;
-  color: var(--accent) !important;
-}
-
-.start-btn:hover { transform: translateY(-2px); }
-
-/* ── Task List Items ────────────────────────────────────────── */
-.task-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.05); /* Very faint task row */
-  border-radius: var(--radius-sm);
-  padding: 12px;
-  margin-bottom: 8px;
-}
-
-.task-text { color: var(--text); font-weight: 500; }
-
-/* ── Forms & Inputs ─────────────────────────────────────────── */
-input[type="text"], input[type="number"], input[type="datetime-local"] {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  color: var(--text) !important;
-  border-radius: 8px;
-  padding: 10px;
-}
-
-/* ── Layout ────────────────────────────────────────────────── */
-.container {
-  display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 24px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-@media (max-width: 780px) {
-  .container { grid-template-columns: 1fr; }
-}
+.top-btn:active { transform: translateY(0); }
 
 /* ── Cards ──────────────────────────────────────────────────── */
 .card {
   background: var(--card);
+  backdrop-filter: blur(10px);
   color: var(--text);
   border-radius: var(--radius);
   padding: 28px;
   box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.08);
   transition: background 0.4s, color 0.4s;
 }
 
@@ -155,33 +71,55 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   margin-bottom: 20px;
 }
 
-/* ── Timer ──────────────────────────────────────────────────── */
+/* ── Layout ─────────────────────────────────────────────────── */
+.container {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+@media (max-width: 780px) {
+  .container { grid-template-columns: 1fr; }
+}
+
+/* ── Preset Buttons ─────────────────────────────────────────── */
 .presets {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .preset-btn {
   flex: 1;
-  background: var(--surface-2);
-  border: 2px solid transparent;
-  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
   padding: 8px 4px;
   font-family: "DM Sans", sans-serif;
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted, rgba(255,255,255,0.55));
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
 }
-.preset-btn:hover, .preset-btn.active {
-  background: var(--accent-light);
+.preset-btn:hover {
+  background: rgba(255,255,255,0.12);
   border-color: var(--accent);
-  color: var(--accent-dark);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+.preset-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 4px 14px -4px var(--accent);
 }
 
+/* ── Custom Time ────────────────────────────────────────────── */
 .custom-time {
   display: flex;
   gap: 8px;
@@ -189,10 +127,10 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
 }
 .custom-time input {
   flex: 1;
-  background: var(--surface-2);
-  border: 2px solid transparent;
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-sm);
-  padding: 8px 12px;
+  padding: 9px 12px;
   font-family: "DM Sans", sans-serif;
   font-size: 0.9rem;
   color: var(--text);
@@ -200,20 +138,24 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   transition: border-color 0.2s;
 }
 .custom-time input:focus { border-color: var(--accent); }
+
 .set-btn {
   background: var(--accent);
   color: white;
   border: none;
   border-radius: var(--radius-sm);
-  padding: 8px 16px;
+  padding: 9px 18px;
   font-family: "DM Sans", sans-serif;
   font-size: 0.88rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: filter 0.2s, transform 0.15s;
+  box-shadow: 0 4px 14px -4px var(--accent);
 }
-.set-btn:hover { background: var(--accent-dark); }
+.set-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.set-btn:active { transform: translateY(0); }
 
+/* ── Timer Display ──────────────────────────────────────────── */
 .time-display {
   font-family: "DM Serif Display", serif;
   font-size: 4.5rem;
@@ -232,30 +174,35 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   50% { transform: scale(1.04); }
 }
 
+/* ── Adjuster Buttons ───────────────────────────────────────── */
 .adjusters {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 16px;
   justify-content: center;
 }
 .adj-btn {
-  background: var(--surface-2);
-  border: 2px solid transparent;
-  border-radius: var(--radius-sm);
-  padding: 6px 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 7px 11px;
   font-family: "DM Sans", sans-serif;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted, rgba(255,255,255,0.55));
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.18s ease;
+  letter-spacing: 0.01em;
 }
 .adj-btn:hover {
+  background: rgba(255,255,255,0.12);
   border-color: var(--accent);
-  color: var(--accent-dark);
-  background: var(--accent-light);
+  color: var(--text);
+  transform: translateY(-1px);
 }
+.adj-btn:active { transform: translateY(0); }
 
+/* ── Main Timer Controls ────────────────────────────────────── */
 .timer-controls {
   display: flex;
   gap: 8px;
@@ -265,57 +212,57 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   flex: 1;
   border: none;
   border-radius: var(--radius-sm);
-  padding: 12px 10px;
+  padding: 13px 10px;
   font-family: "DM Sans", sans-serif;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: var(--shadow);
+  letter-spacing: 0.01em;
 }
 
-/* START */
+/* START — filled, glowing */
 .start-btn {
   background: var(--accent);
   color: white;
+  box-shadow: 0 4px 18px -4px var(--accent);
 }
 .start-btn:hover {
-  background: var(--accent-dark);
-  transform: translateY(-1px);
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px -4px var(--accent);
 }
+.start-btn:active { transform: translateY(0); }
 
-/* PAUSE */
+/* PAUSE — ghost outline */
 .pause-btn {
-  background: var(--surface-2);
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.2);
   color: var(--text);
 }
 .pause-btn:hover {
-  background: #ddd8d0;
-  transform: translateY(-1px);
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.4);
+  transform: translateY(-2px);
 }
+.pause-btn:active { transform: translateY(0); }
 
-/* RESET */
+/* RESET — subtle, dashed */
 .reset-btn {
   background: transparent;
-  color: var(--text-muted);
-  border: 2px dashed var(--surface-2);
+  border: 1.5px dashed rgba(255,255,255,0.18);
+  color: var(--text-muted, rgba(255,255,255,0.4));
+  font-size: 0.85rem;
 }
 .reset-btn:hover {
-  color: var(--text);
   border-color: var(--accent);
+  color: var(--text);
+  background: rgba(255,255,255,0.04);
+  transform: translateY(-1px);
 }
+.reset-btn:active { transform: translateY(0); }
 
-.sound-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  cursor: pointer;
-}
-.sound-label input { accent-color: var(--accent); }
-
-/* ── Task Section ───────────────────────────────────────────── */
+/* ── Task Inputs ────────────────────────────────────────────── */
 .task-inputs {
   display: flex;
   flex-direction: column;
@@ -324,8 +271,8 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
 }
 .task-inputs input[type="text"] {
   width: 100%;
-  background: var(--surface-2);
-  border: 2px solid transparent;
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-sm);
   padding: 12px 16px;
   font-family: "DM Sans", sans-serif;
@@ -343,8 +290,8 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   flex-wrap: wrap;
 }
 .date-row input[type="datetime-local"] {
-  background: var(--surface-2);
-  border: 2px solid transparent;
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-sm);
   padding: 10px 12px;
   font-family: "DM Sans", sans-serif;
@@ -360,20 +307,24 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   font-style: italic;
 }
 
+/* Add Task Button */
 .add-btn {
   background: var(--accent);
   color: white;
   border: none;
   border-radius: var(--radius-sm);
-  padding: 12px;
+  padding: 13px;
   font-family: "DM Sans", sans-serif;
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: filter 0.2s, transform 0.15s;
   width: 100%;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 18px -6px var(--accent);
 }
-.add-btn:hover { background: var(--accent-dark); }
+.add-btn:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 6px 22px -5px var(--accent); }
+.add-btn:active { transform: translateY(0); }
 
 /* ── Task List ──────────────────────────────────────────────── */
 #taskList {
@@ -390,12 +341,14 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: var(--surface-2);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius-sm);
   padding: 12px 14px;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, background 0.2s;
 }
-.task-item.completed { opacity: 0.55; }
+.task-item:hover { background: rgba(255,255,255,0.08); }
+.task-item.completed { opacity: 0.5; }
 
 .task-checkbox {
   width: 18px;
@@ -412,7 +365,6 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   gap: 3px;
   min-width: 0;
 }
-
 .task-text {
   font-size: 0.95rem;
   font-weight: 500;
@@ -425,29 +377,29 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   text-decoration: line-through;
   color: var(--text-muted);
 }
-
-.task-due {
-  font-size: 0.78rem;
-  font-weight: 400;
-}
+.task-due { font-size: 0.78rem; font-weight: 400; }
 .task-due.overdue { color: var(--danger); }
 .task-due.urgent  { color: var(--warning); }
 .task-due.soon    { color: #c8922a; }
 .task-due.ok      { color: var(--ok); }
 .task-due.no-date { color: var(--text-muted); font-style: italic; }
 
+/* Delete button */
 .delete-btn {
   background: none;
   border: none;
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.25);
   font-size: 0.85rem;
   cursor: pointer;
-  padding: 4px 6px;
+  padding: 4px 7px;
   border-radius: 6px;
   transition: all 0.2s;
   flex-shrink: 0;
 }
-.delete-btn:hover { background: #f5ddd9; color: var(--danger); }
+.delete-btn:hover {
+  background: rgba(255, 100, 100, 0.12);
+  color: #ff7070;
+}
 
 .empty-state {
   text-align: center;
@@ -457,6 +409,31 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   padding: 24px 0;
 }
 
+/* ── Palette Switcher ───────────────────────────────────────── */
+.palette-switcher {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.palette-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.palette-dot:hover { transform: scale(1.2); }
+.palette-dot.active { border-color: var(--text); transform: scale(1.15); }
+.palette-dot[data-target="1"] { background: #b06aff; }
+.palette-dot[data-target="2"] { background: #6b9e78; }
+.palette-dot[data-target="3"] { background: #f2c14e; }
+.palette-dot[data-target="4"] { background: #ff7aa2; }
+
+/* ── Focus View ─────────────────────────────────────────────── */
 .focus-view {
   position: fixed;
   inset: 0;
@@ -467,90 +444,27 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   justify-content: center;
   align-items: center;
   z-index: 999;
+  gap: 24px;
 }
+.hidden { display: none; }
 
-.hidden {
-  display: none;
-}
-
-.focus-timer {
-  position: absolute;
-  font-size: 4.5rem;
-  font-family: "DM Serif Display";
-  text-align: center;
-  animation: pulseFocus 2s infinite ease-in-out;
-}
-
-@keyframes pulseFocus {
-  0%, 100% { transform: scale(1); opacity: 0.9; }
-  50% { transform: scale(1.05); opacity: 1; }
-}
-
-.focus-task {
-  font-size: 1.4rem;
-  opacity: 0.8;
-}
-
-.focus-exit {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: rgba(255,255,255,0.1);
-  border: none;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  transition: background 0.2s;
-}
-.focus-exit:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-/* Focus Back Button */
 .focus-back {
   position: absolute;
   top: 20px;
   left: 20px;
-  background: rgba(255,255,255,0.1);
-  border: none;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
   color: white;
-  padding: 8px 14px;
-  border-radius: 8px;
+  padding: 8px 18px;
+  border-radius: 100px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  z-index: 2;
+  transition: background 0.2s;
 }
-
-.focus-back:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-/* Progress Ring */
-.progress-ring {
-  transform: rotate(-90deg);
-  margin-bottom: 20px;
-}
-
-.progress-bg {
-  fill: transparent;
-  stroke: rgba(255,255,255,0.1);
-  stroke-width: 10;
-}
-
-.progress-ring-circle {
-  fill: transparent;
-  stroke: #6b9e78;
-  stroke-width: 10;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 1s linear;
-}
-
-/* Improve focus timer */
-.focus-task {
-  font-size: 1.3rem;
-  opacity: 0.85;
-}
+.focus-back:hover { background: rgba(255,255,255,0.15); }
 
 .focus-controls {
   position: absolute;
@@ -558,24 +472,9 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   display: flex;
   z-index: 1;
 }
-
-.focus-back {
-  z-index: 2;
-}
-
-.focus-left,
-.focus-right {
-  flex: 1;
-  cursor: pointer;
-}
-
-.focus-left:hover {
-  background: rgba(255,255,255,0.05);
-}
-
-.focus-right:hover {
-  background: rgba(255,255,255,0.05);
-}
+.focus-left, .focus-right { flex: 1; cursor: pointer; }
+.focus-left:hover  { background: rgba(255,255,255,0.04); }
+.focus-right:hover { background: rgba(255,255,255,0.04); }
 
 .focus-circle-container {
   position: relative;
@@ -586,6 +485,31 @@ input[type="text"], input[type="number"], input[type="datetime-local"] {
   justify-content: center;
 }
 
+.focus-timer {
+  position: absolute;
+  font-size: 4.5rem;
+  font-family: "DM Serif Display", serif;
+  text-align: center;
+  animation: pulseFocus 2s infinite ease-in-out;
+}
+@keyframes pulseFocus {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+.focus-task {
+  font-size: 1.3rem;
+  opacity: 0.75;
+  font-family: "DM Sans", sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.progress-ring { transform: rotate(-90deg); }
+.progress-bg { fill: transparent; stroke: rgba(255,255,255,0.08); stroke-width: 10; }
 .progress-ring-circle {
+  fill: transparent;
+  stroke: #6b9e78;
+  stroke-width: 10;
+  stroke-linecap: round;
   transition: stroke-dashoffset 0.8s linear;
 }

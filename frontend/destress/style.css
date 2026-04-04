@@ -1,362 +1,140 @@
+/* General Setup */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+    background: #f5f0eb;
+    overflow-x: hidden;
+}
 
-/* each section has their own section so they can be styled individually */
+/* Orbs */
+.orb { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.35; pointer-events: none; z-index: 0; }
+.orb-1 { width: 600px; height: 600px; background: #b5d9bc; top: -150px; left: -200px; animation: drift 14s ease-in-out infinite alternate; }
+.orb-2 { width: 500px; height: 500px; background: #e8cdb5; bottom: 50px; right: -150px; animation: drift 18s ease-in-out infinite alternate-reverse; }
+.orb-3 { width: 400px; height: 400px; background: #c9d9f0; top: 40%; left: 40%; animation: drift 22s ease-in-out infinite alternate; }
+@keyframes drift { from { transform: translate(0, 0); } to { transform: translate(50px, 50px); } }
 
-/* breathe section */
+/* Main Container - Larger size */
+.container { 
+    position: relative; 
+    z-index: 1; 
+    max-width: 900px; /* Increased width */
+    margin: 0 auto; 
+    padding: 100px 24px; 
+}
 
-#breathe-popup {
-    background: white;
-    color: rgb(21, 10, 28);
-    padding: 40px;
+.main.card { 
+    background: #fffdf9; 
+    border-radius: 32px; 
+    padding: 60px 40px; 
+    box-shadow: 0 10px 40px rgba(44, 36, 32, 0.05); 
     text-align: center;
 }
 
-.circle {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
-    background: rgb(29, 18, 70);
-    border-radius: 50%;
-    animation: pulse 19s ease-in-out infinite;
+.card-title { font-family: "DM Serif Display", serif; font-size: 2.5rem; color: #2c2420; margin-bottom: 4px; }
+.card-subtitle { font-family: "DM Sans", sans-serif; font-size: 1.1rem; color: #8a7d75; margin-bottom: 40px; text-transform: lowercase; }
+
+/* Method Buttons */
+.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+.method-btn { 
+    background: #fcfaf7; 
+    border: 2px solid #f0ebe4; 
+    border-radius: 20px; 
+    padding: 32px 24px; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
 }
+
+.btn-text { font-family: "DM Serif Display", serif; font-size: 1.5rem; color: #2c2420; }
+.btn-subtext { font-family: "DM Sans", sans-serif; font-size: 0.9rem; color: #8a7d75; line-height: 1.4; }
+
+.method-btn:hover { 
+    background: #fff; 
+    border-color: #6b9e78; 
+    transform: translateY(-5px); 
+    box-shadow: 0 12px 30px rgba(107, 158, 120, 0.1);
+}
+
+/* Nav Buttons */
+.home-btn, .back-button {
+    position: fixed; top: 24px; left: 24px; z-index: 1100;
+    background: #fffdf9; border: 2px solid #f0ebe4; border-radius: 100px;
+    padding: 10px 22px; font-family: "DM Sans", sans-serif; font-size: 0.9rem;
+    font-weight: 500; color: #2c2420; cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s;
+}
+
+.home-btn:hover, .back-button:hover { border-color: #6b9e78; color: #4a7a57; }
+
+/* Popups */
+.popup {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    justify-content: center; align-items: center; z-index: 2000; background: #f5f0eb;
+}
+
+.popup-card { max-width: 600px; width: 90%; text-align: center; animation: fadeSlideIn 0.4s ease; background: #fffdf9; padding: 60px 40px; border-radius: 32px; }
+@keyframes fadeSlideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Breathe Section */
+.circle-spacer { height: 250px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.circle {
+    width: 100px; height: 100px; background: #6b9e78; border-radius: 50%;
+    box-shadow: 0 0 40px #d4ead9;
+}
+
+/* Only animate when the 'active' class is added via JS */
+.breathe-active .circle { animation: pulse 19s ease-in-out infinite; }
 
 @keyframes pulse {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-    }
-    21% {
-        transform: translate(-50%, -50%) scale(1.8);
-    }
-
-    58% {
-        transform: translate(-50%, -50%) scale(1.8);
-    }
-
-    100% {
-        transform: translate(-50%, -50%) scale(1);
-    }
+    0% { transform: scale(1); }
+    21% { transform: scale(2.2); }
+    58% { transform: scale(2.2); }
+    100% { transform: scale(1); }
 }
 
-#in, #hold, #out {
-    position: fixed;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
+.instruction-area h2 {
+    font-family: "DM Serif Display", serif; color: #4a7a57; opacity: 0; margin: 0;
 }
 
-/* in 4 */
-#in {
-    animation: inhale-text 19s infinite;
-}
+.breathe-active #in { animation: inhale-text 19s infinite; }
+.breathe-active #hold { animation: hold-text 19s infinite; }
+.breathe-active #out { animation: exhale-text 19s infinite; }
 
-/* hold 7 */
-#hold {
-    animation: hold-text 19s infinite;
-}
+@keyframes inhale-text { 0%, 21% { opacity: 1; } 25%, 100% { opacity: 0; } }
+@keyframes hold-text { 0%, 21% { opacity: 0; } 25%, 58% { opacity: 1; } 62%, 100% { opacity: 0; } }
+@keyframes exhale-text { 0%, 58% { opacity: 0; } 62%, 100% { opacity: 1; } }
 
-/* out 8 */
-#out {
-    animation: exhale-text 19s infinite;
-}
-
-/* inhale */
-@keyframes inhale-text {
-    0% { opacity: 1; }
-    21% { opacity: 1; }
-
-    25% { opacity: 0; }
-    100% { opacity: 0; }
-}
-
-/* hold */
-@keyframes hold-text {
-    0% { opacity: 0; }
-    21% { opacity: 0; }
-
-    25% { opacity: 1; }
-    58% { opacity: 1; }
-
-    62% { opacity: 0; }
-    100% { opacity: 0; }
-}
-
-/* exhale */
-@keyframes exhale-text {
-    0% { opacity: 0; }
-    58% { opacity: 0; }
-
-    62% { opacity: 1; }
-    100% { opacity: 1; }
-}
-
-/* bounce section */
-
-#bounce-popup {
-    background: rgb(0, 0, 0);
-    color: rgb(23, 34, 97);
-    padding: 40px;
-    text-align: center;
-}
-
-
+/* Bounce Section */
+#bounce-popup { background: #000; }
 #bounce-popup .square {
-    position: fixed;
-    width: 100px;
-    height: 100px;
-    background-color: white;
-
-    /* horizontal & vertical movement animations */
-    animation:
-        bounceX 5s linear infinite alternate,
-        bounceY 3s linear infinite alternate;
+    position: fixed; width: 100px; height: 100px; background: #fff; border-radius: 12px;
+    animation: bounceX 5s linear infinite alternate, bounceY 3s linear infinite alternate;
 }
+@keyframes bounceX { from { left: 0; } to { left: calc(100vw - 100px); } }
+@keyframes bounceY { from { top: 0; } to { top: calc(100vh - 100px); } }
 
-/* horizontal */
-@keyframes bounceX {
-    from { left: 0; }
-    to { left: calc(100vw - 100px); }
+/* Wave Section */
+#wave-popup { background: #000; }
+#wave-popup video { position: absolute; top: 50%; left: 50%; width: 100vw; height: 100vh; object-fit: cover; transform: translate(-50%, -50%); }
+#wave-toggle { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; border: none; background: #6b9e78; color: #fff; cursor: pointer; z-index: 10; }
+#wave-options { position: fixed; bottom: 90px; right: 30px; display: flex; flex-direction: column-reverse; gap: 10px; z-index: 15; }
+.wave-option { padding: 10px 20px; border-radius: 100px; background: #fff; border: none; cursor: pointer; opacity: 0; transform: translateY(10px); transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.wave-option.show { opacity: 1; transform: translateY(0); }
+
+/* Stretch Section */
+.action-btn {
+    background: #6b9e78; color: #fff; border: none; padding: 14px 32px;
+    border-radius: 100px; font-family: "DM Sans", sans-serif; font-weight: 500;
+    cursor: pointer; transition: 0.2s; font-size: 1rem;
 }
+.action-btn:hover { background: #4a7a57; }
+.action-btn.skip { background: transparent; border: 2px solid #f0ebe4; color: #8a7d75; margin-left: 10px; }
 
-/* vertical */
-@keyframes bounceY {
-    from { top: 0; }
-    to { top: calc(100vh - 100px); }
-}
-
-
-/* wave section */
-
-
-#wave-popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-    justify-content: center;
-    align-items: center;
-    background: black;
-    overflow: hidden;
-}
-
-#wave-popup video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
-
-#wave-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    font-size: 1.2em;
-    cursor: pointer;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background 0.2s;
-}
-
-#wave-toggle:hover {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-
-
-#wave-options {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: flex-end;
-    gap: 10px;
-    z-index: 15;
-}
-
-.wave-option {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.6);
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 0.8em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transform: translateY(20px) scale(0.8);
-    transition: all 0.3s ease;
-}
-
-.wave-option.show {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-/* stretch section */
-
-#stretch-popup {
-    width: 100vw;
-    height: 100vh;
-    
-    display: none;
-    flex-direction: column;
-
-    justify-content: center; 
-    align-items: center;
-    
-    text-align: center;
-    background-image: linear-gradient(
-        109.6deg,
-        rgba(254,253,205,1) 11.2%,
-        rgba(163,230,255,1) 91.1%
-    );
-    margin: 0;
-    padding: 0; 
-    box-sizing: border-box;
-}
-
-.stretch-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
-    max-width: 600px;
-}
-
-#stretch-step {
-    font-size: 2em;
-    margin: 0;
-}
-
-#stretch-description {
-    font-size: 1.2em;
-    line-height: 1.6;
-    white-space: pre-line;
-    margin: 0;
-}
-
-/* Buttons container */
-#stretch-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-#next-stretch, #pause-stretch, #skip-stretch {
-    font-size: 1.2em;
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    background: rgb(29, 18, 70);
-    color: white;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-#next-stretch:hover, #pause-stretch:hover, #skip-stretch:hover {
-    background: rgb(50, 30, 120);
-}
-
-#stretch-popup .back-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: rgb(29, 18, 70);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    z-index: 10;
-}
-
-#stretch-popup .back-button:hover {
-    background: rgb(50, 30, 120);
-}
-
-#stretch-progress-container {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 12px;
-    background: rgba(29, 18, 70, 0.2);
-    overflow: hidden;
-    z-index: 5;
-}
-
-#stretch-progress-bar {
-    width: 0%;
-    height: 100%;
-    background: rgb(29, 18, 70);
-    transition: width 0.1s linear;
-}
-
-#stretch-source {
-    position: fixed;
-    bottom: 20px;
-    left: 10px;
-    font-size: 0.9em;
-    color: rgb(21, 10, 28);
-}
-
-#stretch-source a {
-    color: rgb(29, 18, 70);
-    text-decoration: underline;
-}
-
-#stretch-source a:hover {
-    color: rgb(50, 30, 120);
-}
-
-
-
-/* gen popup stuff */
-
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
-.back-button {
-    color: white;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 6px 12px;
-    cursor: pointer;
-    background: rgb(0, 0, 0);
-    border: 10px whitesmoke;
-    border-radius: 8px;
-    z-index: 10;
-}
+#stretch-progress-container { position: fixed; bottom: 0; left: 0; width: 100%; height: 8px; background: #f0ebe4; }
+#stretch-progress-bar { width: 0%; height: 100%; background: #6b9e78; transition: width 0.1s linear; }
+#stretch-source { position: fixed; bottom: 20px; left: 20px; font-size: 0.8rem; color: #8a7d75; }
